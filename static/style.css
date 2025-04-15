@@ -1,0 +1,63 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f4f4;
+}
+
+.header {
+  background-color: #d1e3e9;
+  color: rgb(11, 12, 20);
+  padding: 1em 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.junction-name {
+  font-size: 1.5em;
+  border: 1px solid black;
+}
+
+.time {
+  font-size: 1.1em;
+  border: 1px solid black;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh); /* Take full screen minus header */
+  width: 100%;
+}
+
+#map {
+  flex: 3;
+  height: 100%;
+  width: 100%;
+  border-right: 2px solid #ecf0f1;
+}
+
+.info-panel {
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.info-panel h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.route {
+  background: #ecf0f1;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #2980b9;
+  border-radius: 5px;
+}

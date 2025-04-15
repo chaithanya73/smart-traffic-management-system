@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Junction Map</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+</head>
+<body>
+  <!-- <div class="header">
+      <div class="junction-name">{{ junction }}</div>
+      <div class="time">Time: {{ time }}</div>
+  </div> -->
+  <div class="container">
+      <div id="map"></div>
+
+      <div class="info-panel">
+        <h2>Alternate Routes</h2>
+        {% for route in diversions %}
+          <div class="route">
+            <strong>{{ route.destination }}</strong><br>
+            via {{ route.via }}
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+  
+
+  <script>
+    const imgWidth = 768;
+    const imgHeight = 795;
+    const bounds = [[0, 0], [imgHeight, imgWidth]];
+
+    const map = L.map('map', {
+      crs: L.CRS.Simple,
+      maxBounds: bounds,
+      maxBoundsViscosity: 1.0,
+      zoomControl: false, // Disable zoom control
+    });
+
+    const image = L.imageOverlay('/static/image.png', bounds).addTo(map);
+    map.fitBounds(bounds); // Fit the map to the image size
+    setTimeout(() => {
+     map.invalidateSize();
+     }, 300); // Give the browser time to lay out the map container
+
+    const routes = [
+      { coords: [[142.25, 440.25], [142.75, 556.75]], congested: true },
+      { coords: [[160.875, 428.625], [520,429.5]], congested: false },
+      { coords: [[150, 412.625], [149.5, 159.75]], congested: true },
+      { coords: [[157, 147.5], [334.5, 148.5]], congested: false },
+      { coords: [[347.5, 158], [526.5, 413]], congested: true },
+      { coords: [[553.625, 417.875], [732.625,162.875]], congested: false },
+      { coords: [[163, 569.75], [524.5, 569]], congested: true },
+      { coords: [[129.5, 569.5], [0.5, 614]], congested: false },
+      { coords: [[139, 583.5], [138.5, 764]], congested: true },
+      { coords: [[536.5, 580], [538,704]], congested: false },
+      { coords: [[558, 568.5], [792.5, 569.5]], congested: true },
+      { coords: [[364.25, 148.75], [716.5, 148.5]], congested: false },
+      { coords: [[125, 429.5], [3, 429]], congested: true },
+    ];
+
+    routes.forEach(route => {
+      const color = route.congested ? 'red' : 'green';
+      L.polyline(route.coords, {
+        color: color,
+        weight: 8,
+        opacity: 0.8
+      }).addTo(map);
+    });
+
+    map.on('click', e => console.log(e.latlng));
+  </script>
+</body>
+</html>
